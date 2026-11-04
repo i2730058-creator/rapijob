@@ -106,7 +106,7 @@ export function Home() {
 
   const available = technicians.filter((tech) => tech.approved && tech.available);
   const featured = [...technicians]
-    .filter((tech) => tech.approved)
+    .filter((tech) => tech.approved && tech.reviewCount > 0)
     .sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount)
     .slice(0, 3);
 
@@ -451,9 +451,23 @@ export function Home() {
           }
         />
         <div className="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featured.map((tech) => (
-            <TechCard key={tech.id} tech={tech} specialtyName={specialtyName(tech.specialty)} />
-          ))}
+          {featured.length === 0 ? (
+            <div className="card flex flex-col items-center justify-center gap-2 p-8 text-center md:col-span-2 lg:col-span-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+                <Star className="h-5 w-5" />
+              </span>
+              <p className="font-display text-base font-bold text-ink">
+                Aún no hay profesionales mejor valorados
+              </p>
+              <p className="max-w-md text-sm leading-relaxed text-slate-500">
+                Los técnicos aparecerán aquí cuando reciban sus primeras calificaciones de clientes.
+              </p>
+            </div>
+          ) : (
+            featured.map((tech) => (
+              <TechCard key={tech.id} tech={tech} specialtyName={specialtyName(tech.specialty)} />
+            ))
+          )}
         </div>
       </section>
 
