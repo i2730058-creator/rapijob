@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-sun-300 text-ink;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .container-rj {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-3xl border border-slate-100 bg-white shadow-card;
+  }
+
+  .label {
+    @apply mb-1.5 block text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink shadow-sm outline-none transition placeholder:text-slate-400 focus:border-brand-400 focus:ring-4 focus:ring-brand-100 disabled:cursor-not-allowed disabled:bg-slate-50;
+  }
+
+  .select-field {
+    @apply input-field appearance-none bg-[length:18px] bg-[right_0.9rem_center] bg-no-repeat pr-10;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-brand-400 bg-clip-text text-transparent;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-200;
+  }
+}
+
+@layer utilities {
+  .bg-dots {
+    background-image: radial-gradient(rgba(11, 36, 71, 0.09) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .bg-grid {
+    background-image: linear-gradient(to right, rgba(11, 36, 71, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11, 36, 71, 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ---------- Leaflet ---------- */
+.leaflet-container {
+  background: #e8eef9;
+  font-family: inherit;
+  z-index: 0;
+}
+
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+.rapijob-marker {
+  background: transparent;
+  border: 0;
+}
+
+.rj-pin {
+  position: relative;
+  width: 34px;
+  height: 44px;
+  transition: transform 0.2s ease;
+}
+
+.rj-pin:hover {
+  transform: translateY(-3px) scale(1.04);
+}
+
+.rj-pin::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--pin-color, #0b2447);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 2.5px solid #fff;
+  box-shadow: 0 7px 16px rgba(7, 26, 51, 0.32);
+}
+
+.rj-pin span {
+  position: absolute;
+  left: 50%;
+  top: 11px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  background: #fff;
+  border-radius: 9999px;
+  z-index: 2;
+}
+
+.rj-pin--selected::before {
+  box-shadow:
+    0 0 0 7px rgba(255, 197, 49, 0.35),
+    0 10px 20px rgba(7, 26, 51, 0.35);
+}
+
+.rj-user-dot {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: #1565ff;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 6px rgba(21, 101, 255, 0.2);
+}
+
+.rj-user-dot span {
+  position: absolute;
+  inset: -11px;
+  border-radius: 9999px;
+  border: 2px solid rgba(21, 101, 255, 0.5);
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+.rapijob-tooltip {
+  background: #071a33 !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  padding: 4px 9px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 20px rgba(7, 26, 51, 0.25) !important;
+}
+
+.rapijob-tooltip::before {
+  display: none !important;
+}
+
+/* ---------- Scrollbar ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

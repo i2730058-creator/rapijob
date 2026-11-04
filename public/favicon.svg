@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="RapiJob">
+  <defs>
+    <linearGradient id="rjGradient" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1565FF" />
+      <stop offset="1" stop-color="#0B2447" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#rjGradient)" />
+  <path
+    d="M22 46V21h12.2c6.4 0 10.8 3.6 10.8 9.3 0 4.4-2.4 7.5-6.4 8.8L46 46h-8.2l-6-6.5h-2.2V46H22Zm7.6-12.6h4.2c2.6 0 4.2-1.2 4.2-3.3 0-2.1-1.6-3.3-4.2-3.3h-4.2v6.6Z"
+    fill="#FFFFFF"
+  />
+  <circle cx="47" cy="17" r="5" fill="#FFC531" />
+</svg>

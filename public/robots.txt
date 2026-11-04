@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# RapiJob — Huancayo, El Tambo y Chilca
