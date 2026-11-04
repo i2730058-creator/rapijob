@@ -17,6 +17,14 @@ export function formatPrice(value: number): string {
   return `S/ ${Number(value || 0).toLocaleString('es-PE', { maximumFractionDigits: 0 })}`;
 }
 
+/** Formato para totales financieros: siempre muestra dos decimales (S/ 0.00). */
+export function formatPriceExact(value: number): string {
+  return `S/ ${Number(value || 0).toLocaleString('es-PE', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
 export function formatDate(iso: string): string {
   if (!iso) return '—';
   const date = new Date(iso.length <= 10 ? `${iso}T12:00:00` : iso);

@@ -30,7 +30,7 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { buttonStyles } from '@/components/Button';
 import { useData } from '@/context/DataContext';
 import { DEFAULT_CENTER } from '@/lib/constants';
-import { formatDistance, formatPrice, haversineKm } from '@/lib/utils';
+import { formatDistance, formatPrice, haversineKm, pluralize } from '@/lib/utils';
 
 const STEPS = [
   {
@@ -137,7 +137,7 @@ export function Home() {
   const averageRating =
     technicians.length > 0
       ? technicians.reduce((sum, tech) => sum + tech.rating, 0) / technicians.length
-      : 4.9;
+      : 0;
 
   return (
     <div>
@@ -211,8 +211,8 @@ export function Home() {
                 <div>
                   <Rating value={Number(averageRating.toFixed(1))} showValue={false} />
                   <p className="text-[11px] font-medium text-slate-500">
-                    <span className="font-bold text-ink">{averageRating.toFixed(1)}/5</span> · +1,200
-                    servicios
+                    <span className="font-bold text-ink">{averageRating.toFixed(1)}/5</span> ·{' '}
+                    {pluralize(reviews.length, 'reseña', 'reseñas')}
                   </p>
                 </div>
               </div>
@@ -634,7 +634,20 @@ export function Home() {
             }
           />
           <div className="mt-9 grid gap-5 md:grid-cols-3">
-            {topReviews.map((review) => {
+            {topReviews.length === 0 ? (
+              <div className="card flex flex-col items-center justify-center gap-2 p-8 text-center md:col-span-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+                  <Star className="h-5 w-5" />
+                </span>
+                <p className="font-display text-base font-bold text-ink">
+                  Aún no hay reseñas publicadas
+                </p>
+                <p className="max-w-md text-sm leading-relaxed text-slate-500">
+                  Las opiniones aparecerán aquí cuando los clientes califiquen servicios completados.
+                </p>
+              </div>
+            ) : (
+              topReviews.map((review) => {
               const tech = technicians.find((item) => item.id === review.techId);
               return (
                 <figure key={review.id} className="card relative flex flex-col p-6">
@@ -655,7 +668,8 @@ export function Home() {
                   </figcaption>
                 </figure>
               );
-            })}
+            })
+            )}
           </div>
         </div>
       </section>
@@ -746,12 +760,9 @@ export function Home() {
                 </div>
                 <div className="mt-3 flex items-center justify-between rounded-2xl bg-brand-950/60 px-3 py-2.5">
                   <div>
-                    <p className="text-[9px] uppercase tracking-wide text-brand-300">Ingresos del mes</p>
-                    <p className="text-sm font-extrabold text-white">S/ 1,850</p>
+                    <p className="text-[9px] uppercase tracking-wide text-brand-300">Ingresos registrados</p>
+                    <p className="text-sm font-extrabold text-white">S/ 0.00</p>
                   </div>
-                  <span className="rounded-full bg-emerald-400/15 px-2 py-1 text-[10px] font-bold text-emerald-300">
-                    +18%
-                  </span>
                 </div>
               </div>
             </div>

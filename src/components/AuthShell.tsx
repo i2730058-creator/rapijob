@@ -2,8 +2,6 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { BadgeCheck, CheckCircle2, MapPin, ShieldCheck, Star } from 'lucide-react';
 import { Logo } from './Logo';
-import { Avatar } from './Avatar';
-import { Rating } from './Rating';
 
 export function AuthShell({ children }: { children: ReactNode }) {
   return (
@@ -61,16 +59,17 @@ export function AuthShell({ children }: { children: ReactNode }) {
 
         <div className="relative rounded-3xl bg-white/5 p-5 ring-1 ring-inset ring-white/10 backdrop-blur">
           <div className="flex items-center gap-3">
-            <Avatar name="María Fernández" size="md" />
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-sun-300">
+              <ShieldCheck className="h-5 w-5" />
+            </span>
             <div className="flex-1">
-              <p className="text-sm font-bold">María Fernández</p>
-              <p className="text-[10px] text-brand-300">Cliente · El Tambo</p>
+              <p className="text-sm font-bold">Todo en un solo lugar</p>
+              <p className="text-[10px] text-brand-300">Solicitudes, seguimiento y reseñas</p>
             </div>
-            <Rating value={5} showValue={false} size="sm" />
           </div>
           <p className="mt-3 text-xs leading-relaxed text-brand-200">
-            “Encontré a un electricista a cinco minutos de mi casa y pude seguir todo el servicio desde
-            la plataforma. Súper recomendado.”
+            Gestiona tus solicitudes, sigue el estado del servicio y califica a los profesionales
+            desde un solo lugar.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-white/10 pt-3 text-[10px] text-brand-300">
             <span className="inline-flex items-center gap-1">
@@ -79,11 +78,11 @@ export function AuthShell({ children }: { children: ReactNode }) {
             </span>
             <span className="inline-flex items-center gap-1">
               <Star className="h-3.5 w-3.5 text-sun-400" />
-              4.9 de valoración
+              Reseñas verificadas
             </span>
             <span className="inline-flex items-center gap-1">
               <BadgeCheck className="h-3.5 w-3.5 text-sun-400" />
-              +1,200 servicios
+              Historial de servicios
             </span>
           </div>
         </div>

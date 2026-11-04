@@ -10,7 +10,7 @@ import type {
   UserStatus,
 } from '@/types';
 import type { AuthApi, Repo, RequestScope } from './repo';
-import { createSeedDb, type DemoDb, type DemoUser } from './seed';
+import { createSeedDb, DEMO_DB_VERSION, type DemoDb, type DemoUser } from './seed';
 import { DISTRICTS, STATUS_FLOW } from './constants';
 import { folioFor, isValidEmail, uid } from './utils';
 
@@ -29,7 +29,7 @@ function safeParse<T>(raw: string | null): T | null {
 
 function loadDb(): DemoDb {
   const restored = safeParse<DemoDb>(localStorage.getItem(DB_KEY));
-  if (restored && restored.version === 1 && Array.isArray(restored.technicians)) {
+  if (restored && restored.version === DEMO_DB_VERSION && Array.isArray(restored.technicians)) {
     return restored;
   }
   const seeded = createSeedDb();

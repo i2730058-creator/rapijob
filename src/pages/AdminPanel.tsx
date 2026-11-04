@@ -50,7 +50,7 @@ import { StatCard } from '@/components/panel/StatCard';
 import { useData } from '@/context/DataContext';
 import { useToast } from '@/context/ToastContext';
 import { ACTIVE_STATUSES, STATUS_FLOW, STATUS_META } from '@/lib/constants';
-import { cn, formatDate, formatDateShort, formatPrice, pluralize, timeAgo } from '@/lib/utils';
+import { cn, formatDate, formatDateShort, formatPrice, formatPriceExact, pluralize, timeAgo } from '@/lib/utils';
 
 type TabId =
   | 'resumen'
@@ -574,7 +574,7 @@ export function AdminPanel() {
           <StatCard
             icon={Wallet}
             label="Ingresos registrados"
-            value={formatPrice(revenue)}
+            value={formatPriceExact(revenue)}
             hint="Servicios completados"
             tone="rose"
           />
@@ -767,7 +767,9 @@ export function AdminPanel() {
                     </div>
                     <div className="rounded-xl bg-cloud p-2.5">
                       <p className="font-display text-lg font-extrabold text-ink">
-                        {requests.length ? formatPrice(Math.round(revenue / completedRequests.length || 0)) : '—'}
+                        {completedRequests.length
+                          ? formatPriceExact(Math.round(revenue / completedRequests.length))
+                          : '—'}
                       </p>
                       <p className="text-[10px] text-slate-500">Ticket promedio</p>
                     </div>
@@ -786,7 +788,7 @@ export function AdminPanel() {
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-xs font-bold text-ink">{tech.name}</p>
                           <p className="text-[10px] text-slate-500">
-                            {completed} servicios · {formatPrice(income)}
+                            {completed} servicios · {formatPriceExact(income)}
                           </p>
                         </div>
                         <Rating value={tech.rating} showValue={false} size="sm" />
@@ -1316,7 +1318,7 @@ export function AdminPanel() {
                     <div className="flex items-center justify-between rounded-xl bg-cloud px-3 py-2.5">
                       <span className="text-slate-500">Ingresos registrados</span>
                       <span className="font-display text-base font-extrabold text-ink">
-                        {formatPrice(revenue)}
+                        {formatPriceExact(revenue)}
                       </span>
                     </div>
                     <div className="flex items-center justify-between rounded-xl bg-cloud px-3 py-2.5">
@@ -1327,14 +1329,14 @@ export function AdminPanel() {
                       <span className="text-slate-500">Ticket promedio</span>
                       <span className="font-bold text-ink">
                         {completedRequests.length
-                          ? formatPrice(Math.round(revenue / completedRequests.length))
+                          ? formatPriceExact(Math.round(revenue / completedRequests.length))
                           : '—'}
                       </span>
                     </div>
                     <div className="flex items-center justify-between rounded-xl bg-cloud px-3 py-2.5">
                       <span className="text-slate-500">Ingresos potenciales activos</span>
                       <span className="font-bold text-ink">
-                        {formatPrice(
+                        {formatPriceExact(
                           activeRequests.reduce((sum, request) => sum + request.price, 0),
                         )}
                       </span>
@@ -1374,7 +1376,7 @@ export function AdminPanel() {
                           <td className="py-2.5 text-slate-600">{tech.district}</td>
                           <td className="py-2.5 font-semibold text-ink">{completed}</td>
                           <td className="py-2.5 text-right font-bold text-ink">
-                            {formatPrice(income)}
+                            {formatPriceExact(income)}
                           </td>
                         </tr>
                       ))}

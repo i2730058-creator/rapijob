@@ -39,7 +39,7 @@ import { useData } from '@/context/DataContext';
 import { useToast } from '@/context/ToastContext';
 import { ACTIVE_STATUSES } from '@/lib/constants';
 import { IS_SUPABASE, resetDemoData } from '@/lib/repo';
-import { formatDate, formatPrice, pluralize } from '@/lib/utils';
+import { formatDate, formatPriceExact, pluralize } from '@/lib/utils';
 
 type TabId = 'activas' | 'historial' | 'perfil';
 
@@ -234,14 +234,14 @@ export function ClientPanel() {
           <StatCard
             icon={Wallet}
             label="Inversión total"
-            value={formatPrice(spent)}
+            value={formatPriceExact(spent)}
             hint="Solo servicios completados"
             tone="amber"
           />
           <StatCard
             icon={Star}
             label="Tu calificación promedio"
-            value={averageRating ? `${averageRating.toFixed(1)}/5` : '—'}
+            value={averageRating.toFixed(1)}
             hint={`${pluralize(rated.length, 'servicio calificado', 'servicios calificados')}`}
             tone="violet"
           />
@@ -468,7 +468,7 @@ export function ClientPanel() {
                     Resumen de cuenta
                   </p>
                   <p className="mt-2 font-display text-2xl font-extrabold text-ink">
-                    {formatPrice(spent)}
+                    {formatPriceExact(spent)}
                   </p>
                   <p className="text-xs text-slate-500">Invertido en servicios completados</p>
                   <div className="mt-3 flex items-center gap-2 rounded-xl bg-cloud px-3 py-2 text-[11px] text-slate-500">

@@ -41,7 +41,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
 import { useToast } from '@/context/ToastContext';
 import { ACTIVE_STATUSES, SERVICE_DISTRICTS, STATUS_FLOW } from '@/lib/constants';
-import { formatDate, formatPrice, formatDistance, haversineKm, pluralize, timeAgo } from '@/lib/utils';
+import { formatDate, formatPrice, formatPriceExact, formatDistance, haversineKm, pluralize, timeAgo } from '@/lib/utils';
 import { DEFAULT_CENTER } from '@/lib/constants';
 
 type TabId = 'solicitudes' | 'historial' | 'resenas' | 'perfil';
@@ -432,7 +432,7 @@ export function TechnicianPanel() {
           <StatCard
             icon={Wallet}
             label="Ingresos registrados"
-            value={formatPrice(income)}
+            value={formatPriceExact(income)}
             hint="Solicitudes completadas"
             tone="violet"
           />
