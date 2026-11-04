@@ -4,6 +4,8 @@
 
 RapiJob es una plataforma web que conecta a clientes con técnicos profesionales cercanos en **Huancayo, El Tambo y Chilca**. Incluye mapa interactivo, búsqueda con filtros, solicitud de servicio en pasos, paneles por rol y backend opcional con Supabase.
 
+> **Demo en producción:** [https://rapijob-6coh.onrender.com](https://rapijob-6coh.onrender.com)
+>
 > **Funciona de inmediato en modo demo**, sin configurar nada: datos de ejemplo, persistencia en `localStorage` y avance automático de las solicitudes.
 
 ---
@@ -32,7 +34,7 @@ RapiJob es una plataforma web que conecta a clientes con técnicos profesionales
 ## Demostración rápida
 
 ```bash
-cd rapijob-web
+cd rapijob
 npm install
 npm run dev
 ```
@@ -143,7 +145,7 @@ Al confirmar se crea la solicitud con estado **pendiente**. En modo demo avanza 
 
 ```bash
 # 1. Entra al proyecto
-cd rapijob-web
+cd rapijob
 
 # 2. Instala dependencias
 npm install
@@ -250,25 +252,38 @@ Recomendaciones para la clave:
 
 El proyecto genera archivos estáticos en `dist/` y puede desplegarse en cualquier hosting.
 
+### Render (producción)
+
+La versión publicada está en **https://rapijob-6coh.onrender.com**.
+
+El archivo [`render.yaml`](./render.yaml) define el servicio como **Static Site**:
+
+- **Build Command:** `npm ci && npm run build`
+- **Publish Directory:** `dist`
+- **Rewrite SPA:** `/*` → `/index.html`
+- **Auto deploy:** activado en la rama `main`
+
+Para conectar Supabase o Google Maps en producción, agrega `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` y `VITE_GOOGLE_MAPS_API_KEY` en **Render → Environment** y vuelve a desplegar.
+
 ### Vercel
 
 1. Importa el repositorio.
-2. **Root Directory:** `rapijob-web`.
-3. **Framework Preset:** Vite.
-4. **Build Command:** `npm run build` · **Output Directory:** `dist`.
-5. Agrega las variables de entorno y despliega.
+2. **Framework Preset:** Vite.
+3. **Build Command:** `npm run build` · **Output Directory:** `dist`.
+4. Agrega las variables de entorno y despliega.
 
 ### Netlify
 
-1. **Base directory:** `rapijob-web`.
+1. **Base directory:** la raíz del repositorio.
 2. **Build command:** `npm run build`.
-3. **Publish directory:** `rapijob-web/dist`.
+3. **Publish directory:** `dist`.
 4. Agrega las variables de entorno.
 
 Como la app usa rutas del lado del cliente, configura la redirección de SPA:
 
-- **Netlify:** crea `public/_redirects` con `/* /index.html 200`.
+- **Netlify:** ya se incluye `public/_redirects` con `/* /index.html 200`.
 - **Vercel:** Vercel ya maneja el fallback de SPA en proyectos Vite.
+- **Render:** la regla está definida en `render.yaml` y configurada en el servicio.
 
 ### Build local
 
@@ -282,9 +297,10 @@ npm run preview
 ## Estructura del proyecto
 
 ```
-rapijob-web/
+rapijob/
 ├─ public/
-│  └─ favicon.svg
+│  ├─ favicon.svg
+│  └─ _redirects         # Fallback SPA para Netlify
 ├─ src/
 │  ├─ components/          # UI reutilizable (Header, MapView, TechCard, panel, etc.)
 │  ├─ context/             # AuthContext, DataContext, ToastContext
@@ -305,6 +321,7 @@ rapijob-web/
 │  └─ schema.sql           # Esquema completo, RLS, triggers y seed
 ├─ .env.example
 ├─ package.json
+├─ render.yaml            # Blueprint de Render (Static Site + rewrite SPA)
 └─ vite.config.ts
 ```
 
